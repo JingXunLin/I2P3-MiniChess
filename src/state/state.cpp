@@ -39,6 +39,7 @@ int State::evaluate(){
 					break;
 			}
 		}
+		111111
 	return score;
 }
 
