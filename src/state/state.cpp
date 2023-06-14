@@ -14,33 +14,13 @@
 int State::evaluate(){
   // [TODO] design your own evaluation function
   // Queen=20, Bishop=8, Knight=7, Rook=6, Pawn=2.
-	int score = 0;
+	int score[10] = {0,2,6,7,8,20};
+  int sum = 0;
 	for(int i=0; i<BOARD_H; i++)
 		for(int j=0; j<BOARD_W; j++)
-		{
-			switch (board[player][i][j])
-			{
-				case 1:
-					score += 2;
-					break;
-				case 2:
-					score += 6;
-					break;
-				case 3:
-					score += 7;
-					break;
-				case 4:
-					score += 8;
-					break;
-				case 5:
-					score += 20;
-					break;
-				default:
-					break;
-			}
-		}
-		111111
-	return score;
+      sum += score[board.board[player][i][j]] - score[board.board[!player][i][j]];
+		
+	return sum;
 }
 
 

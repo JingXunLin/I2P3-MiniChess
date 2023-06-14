@@ -1,8 +1,9 @@
 #include <cstdlib>
 
 #include "../state/state.hpp"
-#include "./random.hpp"
+#include "./minimax.hpp"
 
+using namespace std;
 
 /**
  * @brief Get a legal action by Alpha-Beta Pruning Minimax
@@ -14,17 +15,23 @@
 Move minimax::get_move(State *state, int depth)
 {
 	if(!state->legal_actions.size())
-    state->get_legal_actions();
+    	state->get_legal_actions();
   
 	auto actions = state->legal_actions;
-	int mx = -2e9;
+	int mx = -2e9, mn = 2e9;
 	Move ret;
 	for(auto next_move: actions)
 	{
-		State *child = next_state(next_move);
-		if(mx < child->evaluate())
+		State *child = state->next_state(next_move);
+		int value = dfs(child, depth, state->player);
+		if(state->player && mx < value)
 		{
-			mx = child->evaluate();
+			mx = value;
+			ret = next_move;
+		}
+		if(!state->player && mn > value)
+		{
+			mn = value;
 			ret = next_move;
 		}
 	}
@@ -32,7 +39,7 @@ Move minimax::get_move(State *state, int depth)
 }
 int minimax::dfs(State *state, int depth, bool maximizingPlayer)
 {
-	if(depth == 0 || isLeaf(state))
+	if(depth == 0)
 		return state->evaluate();
 	auto actions = state->legal_actions;
 	int ret;
@@ -41,8 +48,8 @@ int minimax::dfs(State *state, int depth, bool maximizingPlayer)
 		ret = -2e9;
 		for(auto next_move: actions)
 		{
-			State *child = next_state(next_move);
-			ret = max(ret, alphabeta(child, depth-1, alpha, beta, !maximizingPlayer));
+			State *child = state->next_state(next_move);
+			ret = max(ret, dfs(child, depth-1, !maximizingPlayer));
 		}
 	}
 	else
@@ -50,8 +57,8 @@ int minimax::dfs(State *state, int depth, bool maximizingPlayer)
 		ret = 2e9;
 		for(auto next_move: actions)
 		{
-			State *child = next_state(next_move);
-			ret = min(ret, alphabeta(child, depth-1, alpha, beta, !maximizingPlayer));
+			State *child = state->next_state(next_move);
+			ret = min(ret, dfs(child, depth-1, !maximizingPlayer));
 		}
 	}
 	return ret;
