@@ -8,5 +8,4 @@
 class minimax{
 public:
   static Move get_move(State *state, int depth);
-  static int dfs(State *state, int depth, bool maximizingPlayer);
 };

@@ -8,5 +8,4 @@
 class alphabeta{
 public:
   static Move get_move(State *state, int depth);
-  static int dfs(State *state, int depth, int alpha, int beta, int maximizingPlayer);
 };

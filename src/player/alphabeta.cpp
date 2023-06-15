@@ -41,15 +41,11 @@ void read_board(std::ifstream& fin) {
 void write_valid_spot(std::ofstream& fout) {
   // Keep updating the output until getting killed.
   while(true) {
-    // Choose a random spot.
-<<<<<<< HEAD
+    
     auto move = alphabeta::get_move(root, 6);
     
-=======
-    auto move = alphabeta::get_move(root, 3);
->>>>>>> parent of fddce1a (完成minimax和alphabeta)
-    fout << move.first.first << " " << move.first.second << " "\
-         << move.second.first << " " << move.second.second << std::endl;
+    fout << move.first.first << " " << move.first.second << " " \
+    << move.second.first << " " << move.second.second << std::endl;
     
     // Remember to flush the output to ensure the last action is written to file.
     fout.flush();

@@ -14,15 +14,11 @@
 int State::evaluate(){
   // [TODO] design your own evaluation function
   // Queen=20, Bishop=8, Knight=7, Rook=6, Pawn=2.
-	int score[10] = {0,2,6,7,8,20,100};
+	static const float score[10] = {0,1 ,2.4 ,4.0 ,6.4 ,10.4 ,200};
   int sum = 0;
 	for(int i=0; i<BOARD_H; i++)
 		for(int j=0; j<BOARD_W; j++)
-<<<<<<< HEAD
       sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
-=======
-      sum += score[board.board[player][i][j]] - score[board.board[!player][i][j]];
->>>>>>> parent of fddce1a (完成minimax和alphabeta)
 		
 	return sum;
 }
