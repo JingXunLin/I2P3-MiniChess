@@ -457,7 +457,6 @@ int main(int argc, char** argv) {
       // If action is invalid.
       data = game.encode_output();
       std::cout << "Invalid Action\n";
-
       std::cout << x_axis[action.first.second] << y_axis[action.first.first] << " → " \
                 << x_axis[action.second.second] << y_axis[action.second.first] << "\n";
       std::cout << data;

@@ -18,7 +18,11 @@ int State::evaluate(){
   int sum = 0;
 	for(int i=0; i<BOARD_H; i++)
 		for(int j=0; j<BOARD_W; j++)
+<<<<<<< HEAD
       sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
+=======
+      sum += score[board.board[player][i][j]] - score[board.board[!player][i][j]];
+>>>>>>> parent of fddce1a (完成minimax和alphabeta)
 		
 	return sum;
 }
