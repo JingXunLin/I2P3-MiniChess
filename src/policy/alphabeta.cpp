@@ -1,5 +1,5 @@
 #include <cstdlib>
-#include <iostream>
+#include <fstream>
 #include "../state/state.hpp"
 #include "./alphabeta.hpp"
 
@@ -18,25 +18,20 @@ Move alphabeta::get_move(State *state, int depth)
     	state->get_legal_actions();
   
 	auto actions = state->legal_actions;
-	int mx = -2e9, mn = 2e9;
-	Move ret=actions[0];
-	for(auto &next_move: actions)
+	int mx = -2e9, ret = 0;
+
+	for(int i=0; i<actions.size(); i++)
 	{
-		State *child = state->next_state(next_move);
-		int value = dfs(child, depth, int(-2e9), int(2e9), child->player);
-		if(state->player && mx < value)
+		State *child = state->next_state(actions[i]);
+		int value = dfs(child, depth, -2e9, 2e9, 0);
+		if(mx < value)
 		{
 			mx = value;
-			ret = next_move;
-		}
-		if(!state->player && mn > value)
-		{
-			mn = value;
-			ret = next_move;
+			ret = i;
 		}
 	}
-	
-	return ret;
+
+	return actions[ret];
 }
 int alphabeta::dfs(State *state, int depth, int alpha, int beta, int maximizingPlayer)
 {
@@ -47,13 +42,13 @@ int alphabeta::dfs(State *state, int depth, int alpha, int beta, int maximizingP
     	state->get_legal_actions();
 	auto actions = state->legal_actions;
 
-	int ret;
+	int ret = 0;
 	if(maximizingPlayer)
 	{
 		ret = -2e9;
-		for(auto &next_move: actions)
+		for(int i=0; i<actions.size(); i++)
 		{
-			State *child = state->next_state(next_move);
+			State *child = state->next_state(actions[i]);
 			ret = max(ret, dfs(child, depth-1, alpha, beta, !maximizingPlayer));
 			alpha = max(alpha, ret);
 			if(alpha >= beta)
@@ -63,15 +58,15 @@ int alphabeta::dfs(State *state, int depth, int alpha, int beta, int maximizingP
 	else
 	{
 		ret = 2e9;
-		for(auto &next_move: actions)
+		for(int i=0; i<actions.size(); i++)
 		{
-			State *child = state->next_state(next_move);
+			State *child = state->next_state(actions[i]);
 			ret = min(ret, dfs(child, depth-1, alpha, beta, !maximizingPlayer));
 			beta = min(beta, ret);
 			if(alpha >= beta)
 				break;
 		}
 	}
-	
+
 	return ret;
 }

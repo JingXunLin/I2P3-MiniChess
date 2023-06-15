@@ -448,7 +448,8 @@ int main(int argc, char** argv) {
       total ++;
     }
     fin.close();
-
+//std::cout << action.first.second << action.first.first << " → " \
+//                << action.second.second << action.second.first << "\n";
     if (remove(file_action.c_str()) != 0)
       std::cerr << "Error removing file: " << file_action << "\n";
     // Take action

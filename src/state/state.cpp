@@ -14,11 +14,11 @@
 int State::evaluate(){
   // [TODO] design your own evaluation function
   // Queen=20, Bishop=8, Knight=7, Rook=6, Pawn=2.
-	int score[10] = {0,2,6,7,8,20};
+	int score[10] = {0,2,6,7,8,20,100};
   int sum = 0;
 	for(int i=0; i<BOARD_H; i++)
 		for(int j=0; j<BOARD_W; j++)
-      sum += score[board.board[1][i][j]] - score[board.board[0][i][j]];
+      sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
 		
 	return sum;
 }
@@ -214,7 +214,6 @@ void State::get_legal_actions(){
       }
     }
   }
-  std::cout << "\n";
   this->legal_actions = all_actions;
 }
 
