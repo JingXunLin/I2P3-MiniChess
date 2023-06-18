@@ -26,12 +26,12 @@ int State::evaluate(){
       sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
       if(board.board[!player][i][j] == 6)
       {
-        if(player) sum -= i+1;
+        if(!player) sum -= i+1;
         else sum -= BOARD_H - i;
       }
       else
       {
-        if(player) sum += i+1;
+        if(!player) sum += i+1;
         else sum += BOARD_H - i;
       }
     }

@@ -11,8 +11,13 @@ int dfs(State *state, int depth, int alpha, int beta, bool maximizingPlayer)
 
 	if(state->legal_actions.size() == 0)
 	{
-		if(state->game_state == WIN) return 2e9;
-		return -2e9;
+		if(state->game_state == WIN)
+		{
+			if(maximizingPlayer) return 2e9;
+			return -2e9;
+		}
+		if(maximizingPlayer) return -2e9;
+		return 2e9;
 	}
 	auto actions = state->legal_actions;
 
