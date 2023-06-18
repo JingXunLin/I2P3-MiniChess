@@ -48,4 +48,5 @@ $(TARGET_OTHER): %: $(SOURCES_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(BUILD_DIR)/$@ $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
 $(TARGET_UNITTEST): %: $(UNITTEST_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -o $(UNITTEST_DIR)/build/$@ $(STATE_SOURCE) $(POLICY_DIR)/*.cpp $<
+
 endif

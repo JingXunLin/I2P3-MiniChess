@@ -2,23 +2,39 @@
 #include <sstream>
 #include <cstdint>
 
+
 #include "./state.hpp"
 #include "../config.hpp"
-
+#include "../NNet/NNet.hpp"
 
 /**
  * @brief evaluate the state
  * 
  * @return int 
  */
+const int score[10] = {0, 10 ,24 ,40 ,64 ,104 ,2000};
+
 int State::evaluate(){
   // [TODO] design your own evaluation function
-  // Queen=20, Bishop=8, Knight=7, Rook=6, Pawn=2.
-	static const float score[10] = {0,1 ,2.4 ,4.0 ,6.4 ,10.4 ,200};
+	if(game_state == WIN) return -2e9;
+  
+
   int sum = 0;
 	for(int i=0; i<BOARD_H; i++)
 		for(int j=0; j<BOARD_W; j++)
+    {
       sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
+      if(board.board[!player][i][j] == 6)
+      {
+        if(player) sum -= i+1;
+        else sum -= BOARD_H - i;
+      }
+      else
+      {
+        if(player) sum += i+1;
+        else sum += BOARD_H - i;
+      }
+    }
 		
 	return sum;
 }
