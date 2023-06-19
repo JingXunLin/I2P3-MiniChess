@@ -23,6 +23,7 @@ int State::evaluate(){
 		for(int j=0; j<BOARD_W; j++)
     {
       sum += score[board.board[!player][i][j]] - score[board.board[player][i][j]];
+      
       if(board.board[!player][i][j] == 6)
       {
         if(!player) sum -= i+1;
@@ -33,6 +34,7 @@ int State::evaluate(){
         if(!player) sum += i+1;
         else sum += BOARD_H - i;
       }
+      
     }
 		
 	return sum;
