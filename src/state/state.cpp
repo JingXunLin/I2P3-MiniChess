@@ -5,7 +5,6 @@
 
 #include "./state.hpp"
 #include "../config.hpp"
-#include "../NNet/NNet.hpp"
 
 /**
  * @brief evaluate the state
